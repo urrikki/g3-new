@@ -5,6 +5,8 @@ from tkinter import *
 from tkinter.messagebox import *
 #on admet la fonction global qui permet de transmettre des variable local a tous le code sans les retourner
 #on admet la fonction event qui permet de remarquer un click avec la souris 
+#on admet la fonction showinfo qui crée une fentre qui affiche un message
+
 
 #crée un tableau plateau [ [0, 0, 0],[0, 0, 0],[0, 0, 0]]
 plateau=[ [0, 0, 0],
@@ -17,8 +19,6 @@ nTour = 1
 
 #definir afficher qui affichera tour par tour les croix, rond et messages (event)
 def afficher(event) :
-    """ Entrées : Un événement de la souris
-        Sortie : Affiche en temps réel les coordonnées de la case du clic de souris"""
     #attribuer les variables quiJoue , plateau , nTour en global 
     global quiJoue, plateau, nTour
 
@@ -36,9 +36,9 @@ def afficher(event) :
         #alors 
         #si quiJoue est vrai
         if quiJoue:
-            #on dessine une ligne (100*c+8, 100*l+8, 100*c+96, 100*l+96, width = 5, fill = 'blue')                             
+            #on dessine une ligne (100*c+8, 100*l+8, 100*c+96, 100*l+96, width = 5, fill = '#26583a')                            
             dessin.create_line(100*c+8, 100*l+8, 100*c+96, 100*l+96, width = 5, fill = '#26583a')
-            #on dessine une ligne (100*c+8, 100*l+96, 100*c+96, 100*l+8, width = 5, fill = 'blue')
+            #on dessine une ligne (100*c+8, 100*l+96, 100*c+96, 100*l+8, width = 5, fill = '#26583a')
             dessin.create_line(100*c+8, 100*l+96, 100*c+96, 100*l+8, width = 5, fill = '#26583a')
             #plateau[l][c] apprend 1
             plateau[l][c] = 1
@@ -49,7 +49,7 @@ def afficher(event) :
         
         #sinon   
         else:
-            #on dessine un oval (100*c+8, 100*l+8, 100*c+96, 100*l+96, width = 5, outline = 'red')
+            #on dessine un oval (100*c+8, 100*l+8, 100*c+96, 100*l+96, width = 5, outline = '#b61b1c')
             dessin.create_oval(100*c+8, 100*l+8, 100*c+96, 100*l+96, width = 5, outline = '#b61b1c')
             #plateau[l][c] apprend -1
             plateau[l][c] = -1
@@ -88,65 +88,106 @@ def verif(tableau):
                 test+=1
     #si test est egal à 9
     if test == 9:
-        #si (tableau[0][0] + tableau[0][1] + tableau[0][2]) == 3 ou (tableau[1][0] + tableau[1][1] + tableau[1][2])== 3 ou (tableau[2][0] + tableau[2][1] + tableau[2][2])==3 ou (tableau[0][0] + tableau[1][0] + tableau[2][0]) == 3 ou (tableau[0][1] + tableau[1][1] + tableau[2][1]) == 3 ou (tableau[0][2] + tableau[1][2] + tableau[2][2]) == 3 ou (tableau[0][0] + tableau[1][1] + tableau[2][2]) == 3 ou (tableau[0][2] + tableau[1][1] + tableau[2][0])== 3:
+        #si (tableau[0][0] + tableau[0][1] + tableau[0][2]) == 3 ou (tableau[1][0] + tableau[1][1] + tableau[1][2])== 3 ou (tableau[2][0] + tableau[2][1] + tableau[2][2])==3 ou (tableau[0][0] + tableau[1][0] + tableau[2][0]) == 3 ou (tableau[0][1] + tableau[1][1] + tableau[2][1]) == 3 ou (tableau[0][2] + tableau[1][2] + tableau[2][2]) == 3 ou (tableau[0][0] + tableau[1][1] + tableau[2][2]) == 3 ou (tableau[0][2] + tableau[1][1] + tableau[2][0])== 3
         if (tableau[0][0] + tableau[0][1] + tableau[0][2]) == 3 or (tableau[1][0] + tableau[1][1] + tableau[1][2])== 3 or (tableau[2][0] + tableau[2][1] + tableau[2][2])==3 or (tableau[0][0] + tableau[1][0] + tableau[2][0]) == 3 or (tableau[0][1] + tableau[1][1] + tableau[2][1]) == 3 or (tableau[0][2] + tableau[1][2] + tableau[2][2]) == 3 or (tableau[0][0] + tableau[1][1] + tableau[2][2]) == 3 or (tableau[0][2] + tableau[1][1] + tableau[2][0])== 3:
             #retourner 1
             return 1
+        #sinon si (tableau[0][0] + tableau[0][1] + tableau[0][2]) == -3 or (tableau[1][0] + tableau[1][1] + tableau[1][2])== -3 or (tableau[2][0] + tableau[2][1] + tableau[2][2])==-3 or (tableau[0][0] + tableau[1][0] + tableau[2][0]) == -3 or (tableau[0][1] + tableau[1][1] + tableau[2][1]) == -3 or (tableau[0][2] + tableau[1][2] + tableau[2][2]) == -3 or (tableau[0][0] + tableau[1][1] + tableau[2][2]) == -3 or (tableau[0][2] + tableau[1][1] + tableau[2][0])== -3
         elif (tableau[0][0] + tableau[0][1] + tableau[0][2]) == -3 or (tableau[1][0] + tableau[1][1] + tableau[1][2])== -3 or (tableau[2][0] + tableau[2][1] + tableau[2][2])==-3 or (tableau[0][0] + tableau[1][0] + tableau[2][0]) == -3 or (tableau[0][1] + tableau[1][1] + tableau[2][1]) == -3 or (tableau[0][2] + tableau[1][2] + tableau[2][2]) == -3 or (tableau[0][0] + tableau[1][1] + tableau[2][2]) == -3 or (tableau[0][2] + tableau[1][1] + tableau[2][0])== -3:
+            #retourner -1
             return -1
+        #retourner 9
         return 9
+    #sinon
     else:
+        #si (tableau[0][0] + tableau[0][1] + tableau[0][2]) == 3 ou (tableau[1][0] + tableau[1][1] + tableau[1][2])== 3 ou (tableau[2][0] + tableau[2][1] + tableau[2][2])==3 ou (tableau[0][0] + tableau[1][0] + tableau[2][0]) == 3 ou (tableau[0][1] + tableau[1][1] + tableau[2][1]) == 3 ou (tableau[0][2] + tableau[1][2] + tableau[2][2]) == 3 ou (tableau[0][0] + tableau[1][1] + tableau[2][2]) == 3 ou (tableau[0][2] + tableau[1][1] + tableau[2][0])== 3
         if (tableau[0][0] + tableau[0][1] + tableau[0][2]) == 3 or (tableau[1][0] + tableau[1][1] + tableau[1][2])== 3 or (tableau[2][0] + tableau[2][1] + tableau[2][2])==3 or (tableau[0][0] + tableau[1][0] + tableau[2][0]) == 3 or (tableau[0][1] + tableau[1][1] + tableau[2][1]) == 3 or (tableau[0][2] + tableau[1][2] + tableau[2][2]) == 3 or (tableau[0][0] + tableau[1][1] + tableau[2][2]) == 3 or (tableau[0][2] + tableau[1][1] + tableau[2][0])== 3:
+            #retourner 1
             return 1
+        #sinon si (tableau[0][0] + tableau[0][1] + tableau[0][2]) == -3 or (tableau[1][0] + tableau[1][1] + tableau[1][2])== -3 or (tableau[2][0] + tableau[2][1] + tableau[2][2])==-3 or (tableau[0][0] + tableau[1][0] + tableau[2][0]) == -3 or (tableau[0][1] + tableau[1][1] + tableau[2][1]) == -3 or (tableau[0][2] + tableau[1][2] + tableau[2][2]) == -3 or (tableau[0][0] + tableau[1][1] + tableau[2][2]) == -3 or (tableau[0][2] + tableau[1][1] + tableau[2][0])== -3
         elif (tableau[0][0] + tableau[0][1] + tableau[0][2]) == -3 or (tableau[1][0] + tableau[1][1] + tableau[1][2])== -3 or (tableau[2][0] + tableau[2][1] + tableau[2][2])==-3 or (tableau[0][0] + tableau[1][0] + tableau[2][0]) == -3 or (tableau[0][1] + tableau[1][1] + tableau[2][1]) == -3 or (tableau[0][2] + tableau[1][2] + tableau[2][2]) == -3 or (tableau[0][0] + tableau[1][1] + tableau[2][2]) == -3 or (tableau[0][2] + tableau[1][1] + tableau[2][0])== -3:
+            #retourner -1
             return -1
-    
+
+#definirla fonction gagner qui retourn une un message via showinfo par rapport au a que on lui donne
 def gagner(a):
+    #si a est egal a 1
     if a == 1:
+        #alors
+        #showinfo(title='Victoire',message='Les croix ont gagné !')
         showinfo(title='Victoire',message='Les croix ont gagné !')
+    #sinon si a est egal a -1
     elif a == -1:
+        #alors
+        #showinfo(title='Victoire',message='Les ronds ont gagné !')
         showinfo(title='Victoire',message='Les ronds ont gagné !')
+    #sinon si a est egal a 0
     elif a == 0:
+        #showinfo(title='Egalité',message='Match nul !')
         showinfo(title='Egalité',message='Match nul !')
 
-def reinit():
+#definir la fonction reinitialisation qui remet tout les parametre de base
+def reinitialisation():
     
+    #attribuer les variables quiJoue , plateau , nTour en global
     global quiJoue, plateau, nTour
+    #crée un tableau plateau [ [0, 0, 0],[0, 0, 0],[0, 0, 0]]
     plateau = [[0, 0, 0],
-             [0, 0, 0],
-             [0, 0, 0]]
-    quiJoue = True          
+               [0, 0, 0],
+               [0, 0, 0]]
+    #variable quiJoue , un boolen definis a True
+    quiJoue = True 
+    #variable nTour defini a 1         
     nTour = 1
 
+    #on affiche le message Aux tour des croix :
     message.configure(text='Aux tour des croix :')
-    dessin.delete(ALL)      
+    #on supprime tous les dessins
+    dessin.delete(ALL)
+    #on definie le tableau ligne comme vide      
     lignes = []
+    #pour i de 0 à 4
     for i in range(4):
+      #le tableau ligne apprend (dessin.create_line(0, 100*i+2, 303, 100*i+2, width=3 , fill='#d68839'))
       lignes.append(dessin.create_line(0, 100*i+2, 303, 100*i+2, width=3 , fill='#d68839'))
+      #le tableau ligne apprend (dessin.create_line(100*i+2, 0, 100*i+2, 303, width=3 , fill='#d68839'))
       lignes.append(dessin.create_line(100*i+2, 0, 100*i+2, 303, width=3 , fill='#d68839'))
-
+#on crée une fenetre dans la variable fen
 fen = Tk()
+#le titre de cette fenetre est morpion
 fen.title('Morpion')
 
+#crée la variable message qui ecris Aux tour des croix :
 message=Label(fen, text='Aux tour des croix :')
+#on definie la position du message (row = 0, column = 0, columnspan=2, padx=3, pady=3, sticky = W+E)
 message.grid(row = 0, column = 0, columnspan=2, padx=3, pady=3, sticky = W+E)
 
+#créé un bouton bouton_quitter qui permet de detruire la fenetre
 bouton_quitter = Button(fen, text='Quitter', command=fen.destroy)
+#on definie la taille du bouton 
 bouton_quitter.grid(row = 2, column = 1, padx=3, pady=3, sticky = S+W+E)
 
-bouton_reload = Button(fen, text='Recommencer', command=reinit)
+#créé un bouton bouton_reload qui permet de reinitialiser la fenetre
+bouton_reload = Button(fen, text='Recommencer', command=reinitialisation)
+#on definie la taille du bouton
 bouton_reload.grid(row = 2, column = 0, padx=3, pady=3, sticky = S+W+E)
 
+#on créé le plateau de jeu 
 dessin=Canvas(fen, bg="#e1caae", width=301, height=301)
+#on definie la taille du plateau 
 dessin.grid(row = 1, column = 0, columnspan = 2, padx=5, pady=5)
 
+#on cree un tableau lignes vides
 lignes = []
 
+#definir la fonction bind qui detecte un click de souris et quand il se detecte la fonction affficher s'execute
 dessin.bind('<Button-1>', afficher)
 
-reinit()
+#executer reinitialisation
+reinitialisation()
+
+#executer la fenetre
 fen.mainloop()  
 
-exit.onClick()
-
+exit.onclick
 #FIN
