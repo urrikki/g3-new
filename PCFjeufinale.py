@@ -196,14 +196,14 @@ def pierreFeuilleCiseau(userName=None , VictoireDefaite=''):
     elif restart == "oui":
         #alors
         #rappeler la fonction pierreFeuilleCiseau(userName , VictoireDefaite)
-        pierreFeuilleCiseau(userName , VictoireDefaite)
+        return pierreFeuilleCiseau(userName , VictoireDefaite)
     #sinon si restart est egal a non
     elif restart == "non" :
         #retourner VictoireDefaite
         return VictoireDefaite
 
 #Executer la fonction pierreFeuilleCiseau
-pierreFeuilleCiseau()
+print(pierreFeuilleCiseau())
 
 #fin
 
